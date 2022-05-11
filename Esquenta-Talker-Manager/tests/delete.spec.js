@@ -16,7 +16,10 @@ describe('Implemente o endpoint DELETE /task/:id', () => {
   });
 
   it('Será validado que é possível deletar uma tarefa com sucesso', async () => {
-    const response = await chai.request(app).delete('/tasks/1');
+    const response = await chai
+      .request(app)
+      .delete('/tasks/1')
+      .set('Authorization', 'Bearer_123');
 
     expect(response.status).to.equal(200);
 
@@ -24,7 +27,10 @@ describe('Implemente o endpoint DELETE /task/:id', () => {
   });
 
   it('Será validado que não é possível deletar uma tarefa que não existe', async () => {
-    const response = await chai.request(app).delete('/tasks/5');
+    const response = await chai
+      .request(app)
+      .delete('/tasks/5')
+      .set('Authorization', 'Bearer_123');
 
     expect(response.status).to.equal(404);
 
@@ -33,6 +39,19 @@ describe('Implemente o endpoint DELETE /task/:id', () => {
 
     expect(response.body).to.be.deep.equal({
       message: 'Task not found',
+    });
+  });
+
+  it('Será validado que não é possível deletar uma tarefa sem autenticação', async () => {
+    const response = await chai.request(app).delete('/tasks/1');
+
+    expect(response.status).to.equal(401);
+
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+
+    expect(response.body).to.be.deep.equal({
+      message: 'Token não encontrado',
     });
   });
 });
