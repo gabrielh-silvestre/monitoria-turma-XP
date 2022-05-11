@@ -23,7 +23,7 @@ describe('Implemente o endpoint DELETE /task/:id', () => {
       .delete(`${TASK_ENDPOINT}/1`)
       .set('Authorization', 'Bearer_123');
 
-    expect(response.status).to.equal(200);
+    expect(response.status).to.equal(204);
 
     expect(response.body).to.be.empty;
   });
