@@ -8,6 +8,8 @@ const path = require('path');
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const TASK_ENDPOINT = '/task';
+
 describe('Implemente o endpoint PUT /task/:id', () => {
   beforeEach(() => {
     const taskSeed = fs.readFileSync(path.join(__dirname, 'seed.json'), 'utf8');
@@ -18,7 +20,7 @@ describe('Implemente o endpoint PUT /task/:id', () => {
   it('Será validado que é possível editar uma tarefa com sucesso', async () => {
     const response = await chai
       .request(app)
-      .put('/tasks/1')
+      .put(`${TASK_ENDPOINT}/1`)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Começar o Talker Manager',
@@ -42,7 +44,7 @@ describe('Implemente o endpoint PUT /task/:id', () => {
   it('Será validado que não é possível editar uma tarefa sem título', async () => {
     const response = await chai
       .request(app)
-      .put('/tasks/1')
+      .put(`${TASK_ENDPOINT}/1`)
       .set('Authorization', 'Bearer_123')
       .send({
         description: 'Começar o projeto do bloco 22',
@@ -62,7 +64,7 @@ describe('Implemente o endpoint PUT /task/:id', () => {
   it('Será validado que não é possível editar uma tarefa sem descrição', async () => {
     const response = await chai
       .request(app)
-      .put('/tasks/1')
+      .put(`${TASK_ENDPOINT}/1`)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Começar o Talker Manager',
@@ -82,7 +84,7 @@ describe('Implemente o endpoint PUT /task/:id', () => {
   it('Será validado que não é possível editar uma tarefa que não existe', async () => {
     const response = await chai
       .request(app)
-      .put('/tasks/10')
+      .put(`${TASK_ENDPOINT}/10`)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Começar o Talker Manager',
@@ -103,7 +105,7 @@ describe('Implemente o endpoint PUT /task/:id', () => {
   it('Será validado que não é possível editar uma tarefa com título com menos de 3 caracteres', async () => {
     const response = await chai
       .request(app)
-      .put('/tasks/1')
+      .put(`${TASK_ENDPOINT}/1`)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Co',
@@ -122,7 +124,7 @@ describe('Implemente o endpoint PUT /task/:id', () => {
   });
 
   it('Será validado que não é possível editar uma tarefa sem autenticação', async () => {
-    const response = await chai.request(app).put('/tasks/1').send({
+    const response = await chai.request(app).put(`${TASK_ENDPOINT}/1`).send({
       title: 'Começar o Talker Manager',
       description: 'Começar o projeto do bloco 22',
       completed: false,

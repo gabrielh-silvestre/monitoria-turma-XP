@@ -8,6 +8,8 @@ const path = require('path');
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const TASK_ENDPOINT = '/task';
+
 describe('Implemente o endpoint POST /task', () => {
   beforeEach(() => {
     const taskSeed = fs.readFileSync(path.join(__dirname, 'seed.json'), 'utf8');
@@ -18,7 +20,7 @@ describe('Implemente o endpoint POST /task', () => {
   it('Será validado que é possível cadastrar uma tarefa com sucesso', async () => {
     const response = await chai
       .request(app)
-      .post('/tasks')
+      .post(TASK_ENDPOINT)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Começar o Talker Manager',
@@ -42,7 +44,7 @@ describe('Implemente o endpoint POST /task', () => {
   it('Será validado que não é possível cadastrar uma tarefa sem título', async () => {
     const response = await chai
       .request(app)
-      .post('/tasks')
+      .post(TASK_ENDPOINT)
       .set('Authorization', 'Bearer_123')
       .send({
         description: 'Começar o projeto do bloco 22',
@@ -62,7 +64,7 @@ describe('Implemente o endpoint POST /task', () => {
   it('Será validado que não é possível cadastrar uma tarefa sem descrição', async () => {
     const response = await chai
       .request(app)
-      .post('/tasks')
+      .post(TASK_ENDPOINT)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Começar o Talker Manager',
@@ -82,7 +84,7 @@ describe('Implemente o endpoint POST /task', () => {
   it('Será validado que não é possível cadastrar uma tarefa sem status', async () => {
     const response = await chai
       .request(app)
-      .post('/tasks')
+      .post(TASK_ENDPOINT)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Começar o Talker Manager',
@@ -102,7 +104,7 @@ describe('Implemente o endpoint POST /task', () => {
   it('Será validado que não é possível cadastrar uma tarefa com status inválido', async () => {
     const response = await chai
       .request(app)
-      .post('/tasks')
+      .post(TASK_ENDPOINT)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Começar o Talker Manager',
@@ -123,7 +125,7 @@ describe('Implemente o endpoint POST /task', () => {
   it('Será validado que não é possível cadastrar uma tarefa com título com menos de 3 caracteres', async () => {
     const response = await chai
       .request(app)
-      .post('/tasks')
+      .post(TASK_ENDPOINT)
       .set('Authorization', 'Bearer_123')
       .send({
         title: 'Co',
@@ -142,7 +144,7 @@ describe('Implemente o endpoint POST /task', () => {
   });
 
   it('Será validado que não é possível cadastrar uma tarefa sem autenticação', async () => {
-    const response = await chai.request(app).post('/tasks').send({
+    const response = await chai.request(app).post(TASK_ENDPOINT).send({
       title: 'Começar o Talker Manager',
       description: 'Começar o projeto do bloco 22',
       completed: false,
