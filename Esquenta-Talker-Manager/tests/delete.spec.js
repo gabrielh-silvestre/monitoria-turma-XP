@@ -8,6 +8,8 @@ const path = require('path');
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const TASK_ENDPOINT = '/task';
+
 describe('Implemente o endpoint DELETE /task/:id', () => {
   beforeEach(() => {
     const taskSeed = fs.readFileSync(path.join(__dirname, 'seed.json'), 'utf8');
@@ -18,7 +20,7 @@ describe('Implemente o endpoint DELETE /task/:id', () => {
   it('Será validado que é possível deletar uma tarefa com sucesso', async () => {
     const response = await chai
       .request(app)
-      .delete('/tasks/1')
+      .delete(`${TASK_ENDPOINT}/1`)
       .set('Authorization', 'Bearer_123');
 
     expect(response.status).to.equal(200);
@@ -29,7 +31,7 @@ describe('Implemente o endpoint DELETE /task/:id', () => {
   it('Será validado que não é possível deletar uma tarefa que não existe', async () => {
     const response = await chai
       .request(app)
-      .delete('/tasks/5')
+      .delete(`${TASK_ENDPOINT}/10`)
       .set('Authorization', 'Bearer_123');
 
     expect(response.status).to.equal(404);
@@ -43,7 +45,7 @@ describe('Implemente o endpoint DELETE /task/:id', () => {
   });
 
   it('Será validado que não é possível deletar uma tarefa sem autenticação', async () => {
-    const response = await chai.request(app).delete('/tasks/1');
+    const response = await chai.request(app).delete(`${TASK_ENDPOINT}/1`);
 
     expect(response.status).to.equal(401);
 
