@@ -9,7 +9,7 @@ const path = require('path');
 const { expect } = chai;
 chai.use(chaiHttp);
 
-describe('Implemente o endpoint GET /task', () => {
+describe('Implemente o endpoint GET /tasks', () => {
   beforeEach(() => {
     const taskSeed = fs.readFileSync(
       path.join(__dirname, 'seed.json'),
