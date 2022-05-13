@@ -53,7 +53,7 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 
   2. O endpoint deve retornar o seguinte: 
 
-  ```
+  ```json
     [
       {
         "id": 1,
@@ -93,7 +93,7 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 
   2. Caso a tarefa seja cadastrada com sucesso sua API deve responder com o status ```201``` com com o seguinte body.
 
-  ```
+  ```json
     {
       "id": 5,
       "title": "Preencher o Forms",
@@ -104,38 +104,43 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
   
   3. Será validado que não é possível cadastrar uma tarefa sem título
     - a resposta da API deve ser a seguinte mensagem
-  ```
+    
+  ```json
     { message: '"title" is required' }
   ```
 
   4. Será validado que não é possível cadastrar uma tarefa sem descrição
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: '"description" is required' }
   ```
 
   5. Será validado que não é possível cadastrar uma tarefa sem o status
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: '"completed" is required' }
   ```
 
   6. Será validado que não é possível cadastrar uma tarefa com status inválido
     - a resposta da API deve ser a seguinte mensagem
-    ```
-      { message: '"completed" must be a boolean' }
-    ```
+
+  ```json
+    { message: '"completed" must be a boolean' }
+  ```
 
    7. Será validado que não é possível cadastrar uma tarefa com título com menos de 3 caracteres
     - a resposta da API deve ser a seguinte mensagem
 
-  ```
+  ```json
     { message: '"title" length must be at least 3 characters long' }
   ```
 
    8. Será validado que não é possível cadastrar uma tarefa sem autenticação
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: 'Token não encontrado' }
   ```
 </details>
@@ -148,7 +153,8 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
   
   2. Será validado que é possível editar uma tarefa com sucesso
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     {
       id: 1,
       title: 'Começar o Talker Manager',
@@ -159,32 +165,36 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 
   3. Será validado que não é possível editar uma tarefa sem título
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: '"title" is required' }
   ```
   
   4. Será validado que não é possível editar uma tarefa sem descrição
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: '"description" is required' }
   ```
 
   5. Será validado que não é possível editar uma tarefa que não existe
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: 'Task not found' }
   ```
 
   6. Será validado que não é possível editar uma tarefa com título com menos de 3 caracteres
     - a resposta da API deve ser a seguinte mensagem
 
-  ```
+  ```json
     { message: '"title" length must be at least 3 characters long' }
   ```
 
   8. Será validado que não é possível editar uma tarefa sem autenticação
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: 'Token não encontrado' }
   ```
 </details>
@@ -199,12 +209,14 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 
   3. Será validado que não é possível deletar uma tarefa que não existe
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: 'Task not found' }
   ```
   4. Será validado que não é possível editar uma tarefa sem autenticação
     - a resposta da API deve ser a seguinte mensagem
-  ```
+
+  ```json
     { message: 'Token não encontrado' }
   ```
 </details>
