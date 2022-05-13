@@ -1,6 +1,6 @@
 # Boas vindas ao repositório de revisão do Bloco 22!
 
-Para desenvolver os exercicios, você deverá seguir as instruções a seguir. Fique atento a cada passo e, se tiver qualquer dúvida, nos chame no Slido #vqv 🚀
+Para desenvolver os exercicios, você deverá seguir as instruções a seguir. Fique atento a cada passo e, se tiver qualquer dúvida, nos chame no <a href="https://app.sli.do/event/xtvrdxyr" target="_blank">Slido</a> #vqv 🚀
 
 
 Aqui você vai encontrar os detalhes de como estruturar sua API.
