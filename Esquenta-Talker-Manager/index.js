@@ -5,6 +5,8 @@ const { taskRoute } = require('./routes/task');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(express.json());
+
 app.get('/', (_req, res) => {
   res.send('Hello World!');
 });
