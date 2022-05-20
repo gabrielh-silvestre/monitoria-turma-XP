@@ -1,1 +1,0 @@
-# esquenta-store-manager
