@@ -6,7 +6,7 @@ const mysql = require('mysql2/promise');
 const Importer = require('mysql-import');
 
 const app = require('../index');
-const tasksMocks = require('./mocks/tasks');
+const { serializedTasks } = require('./mocks/tasks');
 
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -49,7 +49,7 @@ describe('Implemente o endpoint GET /task', () => {
     expect(response.body).to.be.an('array');
     expect(response.body).to.have.lengthOf(4);
 
-    expect(response.body).to.be.deep.equal(tasksMocks);
+    expect(response.body).to.be.deep.equal(serializedTasks);
   });
 
   it('Será validado que o endpoint retorna um array vazio caso não haja tarefas cadastradas', async () => {
