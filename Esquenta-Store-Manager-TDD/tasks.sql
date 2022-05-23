@@ -14,4 +14,4 @@ VALUES
     ('Ler o Course', 'Ver o Bloco 20.4', 0),
     ('Trabalhar', 'Summer', 1),
     ('Testes do Store Manager', 'Fazer os testes unitários', 0),
-    ('Fazer o deploy', 'Fazer o deploy do projeto no Keroku', 1);
+    ('Fazer o deploy', 'Fazer o deploy do projeto no Heroku', 1);
