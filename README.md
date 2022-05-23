@@ -1,14 +1,14 @@
-# Boas vindas ao repositório de revisão do Bloco 22!
+# Boas vindas ao repositório de revisão do Bloco 23!
 
 Para desenvolver os exercicios, você deverá seguir as instruções a seguir. Fique atento a cada passo e, se tiver qualquer dúvida, nos chame no <a href="https://app.sli.do/event/xtvrdxyr" target="_blank">Slido</a> #vqv 🚀
 
 
-Aqui você vai encontrar os detalhes de como estruturar sua API.
+Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arquitetura de camadas.
 
 <details>
   <summary><strong>O que deverá ser desenvolvido</strong></summary><br />
 
-  Hoje, você usará o pacote Express para criar uma API, revisar e consolidar **todos** os principais conceitos vistos até o momento.
+  Hoje, você usará o pacote Express seguindo a arquitetura de camadas e a arquitetura Rest e Restfull para criar uma API, revisar e consolidar **todos** os principais conceitos vistos até o momento.
 
   Você receberá instruções de como as rotas de sua API devem se comportar.
 </details>
@@ -17,14 +17,13 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
   <summary><strong>Antes de começar a desenvolver</strong></summary><br />
   
   1. Clone o repositório
-  * `git@github.com:gabrielh-silvestre/monitoria-turma-XP.git`.
+  * `gitt clone git@github.com:gabrielh-silvestre/monitoria-turma-XP.git`.
   * Entre na pasta do repositório que você acabou de clonar:
-    * `cd monitoria-turma-XP`
 
   Instale as dependencias com  `npm install`;
 
   2. **ATENÇÂO**
-    - Os pacotes para a criação da API não veem instalados
+    - Os pacotes para a criação da API **não** veem instalados
 
 </details>
 
@@ -47,37 +46,37 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 ## Requisitos
 
 <details>
-  <summary><strong>Implemente o endpoint GET /task</strong></summary><br />
+  <summary><strong>Implemente o endpoint GET /talkers</strong></summary><br />
   
-  1. Implemente o endpoint GET /task para que retorne todos as tarefas do arquivo task.json.
+  1. Implemente o endpoint GET /talkers para que retorne todos os talkers do banco de dados.
 
-  2. O endpoint deve retornar o seguinte: 
+  2. O endpoint deve retornar o status 200 com o seguinte corpo: 
 
   ```json
     [
       {
-        "id": 1,
-        "title": "Ler o Course",
-        "description": "Ver o Bloco 20.4",
-        "completed": false
+        "idTalker": 1,
+        "nameTalker": "Henrique Albuquerque",
+        "ageTalker": 62,
+        "emailTalker": "henrique.albuquerque10@gmail.com"
       },
       {
-        "id": 2,
-        "title": "Fazer os exercícios",
-        "description": "Fazer os exercícios do dia",
-        "completed": false
+        "idTalker": 2,
+        "nameTalker": "Heloísa Albuquerque",
+        "ageTalker": 67,
+        "emailTalker": "heloisa.albuquerque10@gmail.com"
       },
       {
-        "id": 3,
-        "title": "Fazer os testes",
-        "description": "Fazer os testes do projeto",
-        "completed": true
+        "idTalker": 3,
+        "nameTalker": "Ricardo Xavier Filho",
+        "ageTalker": 33,
+        "emailTalker": "ricardo.xavier10@gmail.com"
       },
       {
-        "id": 4,
-        "title": "Fazer o deploy",
-        "description": "Fazer o deploy do projeto",
-        "completed": true
+        "idTalker": 4,
+        "nameTalker": "Marcos Costa",
+        "ageTalker": 24,
+        "emailTalker": "marcos.costa2022@gmail.com"
       }
     ]
   ```
@@ -87,136 +86,132 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 </details>
 
 <details>
-  <summary><strong>Implemente o endpoint POST /task</strong></summary><br />
+  <summary><strong>Implemente o endpoint POST /talkers</strong></summary><br />
 
-  1. Implemente o endpoint POST /task para que possa cadastrar novas tarefas no arquivo task.json.
+  1. Implemente o endpoint POST /talkers para que possa cadastrar novos talkers no banco de dados.
 
-  2. Caso a tarefa seja cadastrada com sucesso sua API deve responder com o status ```201``` com com o seguinte body.
+  2. Caso o talker seja cadastrado com sucesso sua API deve responder com o status ```201``` com com o body no seguinte formato.
 
   ```json
     {
-      "id": 5,
-      "title": "Preencher o Forms",
-      "description": "Preencher o forms ao final do dia",
-      "completed": false
+      "idTalker": 6,
+      "nameTalker": "João da Matta",
+      "ageTalker": 32,
+      "emailTalker": "joao.matta2016@gmail.com"
     }
   ```
   
-  3. Será validado que não é possível cadastrar uma tarefa sem título
-    - a resposta da API deve ser a seguinte mensagem
+  3. Será validado que não é possível cadastrar um novo talker sem nome
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
     
   ```json
-    { "message": '"title" is required' }
+    { "message": '"name" is required' }
   ```
 
-  4. Será validado que não é possível cadastrar uma tarefa sem descrição
+  4. Será validado que não é possível cadastrar um novo talker com o nome menor que quatro caracteres
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+    
+  ```json
+    { "message": '"name" length must be at least 6 characters long' }
+  ```
+
+  5. Será validado que não é possível cadastrar um novo talker sem a idade
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+
+  ```json
+    { "message": '"age" is required' }
+  ```
+
+  6. Será validado que não é possível cadastrar um novo talker se a idade for menor que 18 anos
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+
+  ```json
+    { "message": 'The speaker must be of legal age' }
+  ```
+
+  7. Será validado que não é possível cadastrar um novo talker sem o email
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+
+  ```json
+    { "message": '"age" is required' }
+  ```
+
+  8. Será validado que não é possível cadastrar um novo talker com o formato do email inválido
     - a resposta da API deve ser a seguinte mensagem
 
   ```json
-    { "message": '"description" is required' }
-  ```
-
-  5. Será validado que não é possível cadastrar uma tarefa sem o status
-    - a resposta da API deve ser a seguinte mensagem
-
-  ```json
-    { "message": '"completed" is required' }
-  ```
-
-  6. Será validado que não é possível cadastrar uma tarefa com status inválido
-    - a resposta da API deve ser a seguinte mensagem
-
-  ```json
-    { "message": '"completed" must be a boolean' }
-  ```
-
-   7. Será validado que não é possível cadastrar uma tarefa com título com menos de 3 caracteres
-    - a resposta da API deve ser a seguinte mensagem
-
-  ```json
-    { "message": '"title" length must be at least 3 characters long' }
-  ```
-
-   8. Será validado que não é possível cadastrar uma tarefa sem autenticação
-    - a resposta da API deve ser a seguinte mensagem
-
-  ```json
-    { "message": 'Token não encontrado' }
+    { "message": '"email" must be a valid email' }
   ```
 </details>
 
 
 <details>
-  <summary><strong>Implemente o endpoint PUT /task</strong></summary><br />
+  <summary><strong>Implemente o endpoint PUT /talker</strong></summary><br />
 
-  1. Implemente o endpoint PUT /task para que possa editar tarefas no arquivo task.json.
+  1. Implemente o endpoint PUT /talker/:id para que possa editar talkers no banco de dados.
+    - A pessoa palestrante que será editada, será passado pelo endpoint /:id
   
-  2. Será validado que é possível editar uma tarefa com sucesso
+  2. Será validado que é possível editar uma pessoas palestrante com sucesso
     - a resposta da API deve ser a seguinte mensagem
 
   ```json
     {
-      "id": 1,
-      "title": "Começar o Talker Manager",
-      "description": "Começar o projeto do bloco 22",
-      "completed": false,
+      "idTalker": "1",
+      "nameTalker": "João da Matta",
+      "ageTalker": 22,
+      "emailTalker": "joao.matta@gmail.com"
     }
   ```
 
-  3. Será validado que não é possível editar uma tarefa sem título
-    - a resposta da API deve ser a seguinte mensagem
-
+    3. Será validado que não é possível editar uma pessoa palestrante sem nome
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+    
   ```json
-    { "message": "\"title\" is required" }
-  ```
-  
-  4. Será validado que não é possível editar uma tarefa sem descrição
-    - a resposta da API deve ser a seguinte mensagem
-
-  ```json
-    { "message": "\"description\" is required" }
+    { "message": '"name" is required' }
   ```
 
-  5. Será validado que não é possível editar uma tarefa que não existe
-    - a resposta da API deve ser a seguinte mensagem
-
+  4. Será validado que não é possível editar uma pessoa palestrante com o nome menor que quatro caracteres
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+    
   ```json
-    { "message": "Task not found" }
+    { "message": '"name" length must be at least 6 characters long' }
   ```
 
-  6. Será validado que não é possível editar uma tarefa com título com menos de 3 caracteres
-    - a resposta da API deve ser a seguinte mensagem
+  5. Será validado que não é possível editar uma pessoa palestrante sem a idade
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
-    { "message": "\"title\" length must be at least 3 characters long" }
+    { "message": '"age" is required' }
   ```
 
-  8. Será validado que não é possível editar uma tarefa sem autenticação
+  6. Será validado que não é possível editar uma pessoa palestrante se a idade for menor que 18 anos
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+
+  ```json
+    { "message": 'The speaker must be of legal age' }
+  ```
+
+  7. Será validado que não é possível editar uma pessoa palestrante sem o email
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+
+  ```json
+    { "message": '"age" is required' }
+  ```
+
+  8. Será validado que não é possível editar uma pessoa palestrante com o formato do email inválido
     - a resposta da API deve ser a seguinte mensagem
 
   ```json
-    { "message": "Token não encontrado" }
+    { "message": '"email" must be a valid email' }
   ```
 </details>
 
 
 <details>
-  <summary><strong>Implemente o endpoint DELETE /task/:id</strong></summary><br />
+  <summary><strong>Implemente o endpoint DELETE /talkers/:id</strong></summary><br />
 
   1. Implemente o endpoint PUT /task/:id para que possa deletar tarefas no arquivo task.json.
+     - A pessoa palestrante que será deletada, será passado pelo endpoint /:id
   
-  2. Será validado que é possível deletar uma tarefa com sucesso retornando o status 200
-
-  3. Será validado que não é possível deletar uma tarefa que não existe
-    - a resposta da API deve ser a seguinte mensagem
-
-  ```json
-    { "message": "Task not found" }
-  ```
-  4. Será validado que não é possível editar uma tarefa sem autenticação
-    - a resposta da API deve ser a seguinte mensagem
-
-  ```json
-    { "message": "Token não encontrado" }
-  ```
+  2. Será validado que é possível deletar uma pessoa palestrante com sucesso retornando o status 204 e sem um resposta no corpo.
 </details>
