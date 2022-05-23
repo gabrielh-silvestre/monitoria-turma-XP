@@ -8,7 +8,7 @@ const readTasks = async () => {
 };
 
 const writeTasks = async (tasks) => {
-  const stringTasks = JSON.stringify(tasks);
+  const stringTasks = JSON.stringify(tasks, null, 2);
 
   await fs.writeFile('./task.json', stringTasks, 'utf8');
 };
