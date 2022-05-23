@@ -6,7 +6,7 @@ services:
     # Imagem base do container
     image: node:16
     # Nome do container para facilitar execução
-    container_name: esquenta_monitoria_db
+    container_name: esquenta_monitoria
     # Mesmo que `docker run -t`
     tty: true
     # Mesmo que `docker run -i`
@@ -40,7 +40,7 @@ services:
 
   # Serviço que irá rodar o banco de dados
   db:
-    container_name: esquenta_monitoria
+    container_name: esquenta_monitoria_db
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 'password'
