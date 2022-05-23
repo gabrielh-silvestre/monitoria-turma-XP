@@ -1,9 +1,11 @@
-const fs = require('fs');
-const app = require('../index');
+require('dotenv').config();
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const path = require('path');
+const mysql = require('mysql2/promise');
+const Importer = require('mysql-import');
+
+const app = require('../index');
 
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -11,10 +13,31 @@ chai.use(chaiHttp);
 const TASK_ENDPOINT = '/task';
 
 describe('Implemente o endpoint POST /task', () => {
-  beforeEach(() => {
-    const taskSeed = fs.readFileSync(path.join(__dirname, 'seed.json'), 'utf8');
+  let connection;
 
-    fs.writeFileSync(path.join(__dirname, '..', 'task.json'), taskSeed, 'utf8');
+  before(async () => {
+    connection = mysql.createPool({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+    });
+
+    const importer = new Importer({
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+    });
+
+    await importer.import('./tasks.sql');
+
+    importer.disconnect();
+  });
+
+  after(async () => {
+    await connection.execute('DROP DATABASE Tasks_Manager');
+    await connection.end();
   });
 
   it('Será validado que é possível cadastrar uma tarefa com sucesso', async () => {
