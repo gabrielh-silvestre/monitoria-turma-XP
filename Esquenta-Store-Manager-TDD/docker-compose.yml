@@ -15,13 +15,13 @@ services:
     image: node:16-alpine
     restart: always
     working_dir: /app/api
-    command: npm run dev
     ports:
       - ${PORT}:${PORT}
     depends_on:
       - db
     volumes:
       - .:/app/api
+    stdin_open: true
     tty: true
     environment:
       - DB_USER=${DB_USER}
