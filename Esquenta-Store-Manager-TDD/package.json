@@ -8,7 +8,8 @@
     "test:unit": "mocha tests/unit/**/*spec.js --exit",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "posttest": "node tests/dbReset.js"
+    "posttest": "node tests/dbReset.js",
+    "db:seed": "node tests/dbReset.js"
   },
   "keywords": [],
   "author": "",
