@@ -7,7 +7,8 @@
     "test": "mocha tests/**/*spec.js --exit",
     "test:unit": "mocha tests/unit/**/*spec.js --exit",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "posttest": "node tests/dbReset.js"
   },
   "keywords": [],
   "author": "",
