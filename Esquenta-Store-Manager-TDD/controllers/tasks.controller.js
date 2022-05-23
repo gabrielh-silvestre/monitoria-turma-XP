@@ -1,9 +1,9 @@
 const { TaskServices } = require('../services/tasks.service');
 
 const findAll = async (_req, res) => {
-  const tasks = await TaskServices.findAll();
+  const { statusCode, data } = await TaskServices.findAll();
 
-  return res.status(200).json(tasks);
+  return res.status(statusCode).json(data);
 };
 
 const create = async (req, res, next) => {

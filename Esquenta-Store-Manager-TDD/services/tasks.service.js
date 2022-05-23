@@ -3,7 +3,10 @@ const { TaskModel } = require('../model/tasks.model');
 const findAll = async () => {
   const tasks = await TaskModel.findAll();
 
-  return tasks;
+  return {
+    statusCode: 200,
+    data: tasks,
+  };
 };
 
 const create = async ({ title, description, completed }) => {
