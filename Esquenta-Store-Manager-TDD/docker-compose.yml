@@ -9,7 +9,7 @@ services:
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_RANDOM_ROOT_PASSWORD=true
-      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_DATABASE=${DB_DATABASE}
   backend:
     image: node:16-alpine
     restart: always
@@ -23,8 +23,8 @@ services:
       - .:/app/api
     tty: true
     environment:
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_PORT=${DB_PORT}
-      - HOSTNAME=db
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=db
