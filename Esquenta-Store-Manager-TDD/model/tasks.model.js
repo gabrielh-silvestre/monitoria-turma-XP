@@ -1,28 +1,29 @@
 const { connection } = require('./connection');
+const { taskSerializer } = require('../helpers');
 
 const findAll = async () => {
-  const query = `SELECT * FROM Tasks`;
+  const query = `SELECT * FROM Tasks_Manager.Tasks`;
 
   const [result] = await connection.execute(query);
-  return result;
+  return result.map(taskSerializer);
 };
 
 const findByTitle = async ({ title }) => {
-  const query = `SELECT * FROM Tasks WHERE title = ?`;
+  const query = `SELECT * FROM Tasks_Manager.Tasks WHERE title = ?`;
 
   const [result] = await connection.execute(query, [title]);
-  return result.length === 0 ? null : result[0];
+  return result.length === 0 ? null : taskSerializer(result[0]);
 };
 
 const findById = async ({ id }) => {
-  const query = `SELECT * FROM Tasks WHERE id = ?`;
+  const query = `SELECT * FROM Tasks_Manager.Tasks WHERE id = ?`;
 
   const [result] = await connection.execute(query, [id]);
-  return result.length === 0 ? null : result[0];
+  return result.length === 0 ? null : taskSerializer(result[0]);
 };
 
 const create = async ({ title, description, completed }) => {
-  const query = `INSERT INTO Tasks (title, description, completed) VALUES (?, ?, ?)`;
+  const query = `INSERT INTO Tasks_Manager.Tasks (title, description, completed) VALUES (?, ?, ?)`;
 
   const [{ insertId }] = await connection.execute(query, [
     title,
@@ -30,29 +31,29 @@ const create = async ({ title, description, completed }) => {
     completed,
   ]);
 
-  return {
+  return taskSerializer({
     id: insertId,
     title,
     description,
     completed,
-  };
+  });
 };
 
 const update = async ({ id, title, description, completed }) => {
-  const query = `UPDATE Tasks SET title = ?, description = ?, completed = ? WHERE id = ?`;
+  const query = `UPDATE Tasks_Manager.Tasks SET title = ?, description = ?, completed = ? WHERE id = ?`;
 
   await connection.execute(query, [title, description, completed, id]);
 
-  return {
+  return taskSerializer({
     id,
     title,
     description,
     completed,
-  };
+  });
 };
 
 const destroy = async ({ id }) => {
-  const query = `DELETE FROM Tasks WHERE id = ?`;
+  const query = `DELETE FROM Tasks_Manager.Tasks WHERE id = ?`;
 
   await connection.execute(query, [id]);
 };

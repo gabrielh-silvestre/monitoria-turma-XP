@@ -13,7 +13,15 @@ const writeTasks = async (tasks) => {
   await fs.writeFile('./task.json', stringTasks, 'utf8');
 };
 
+const taskSerializer = (task) => {
+  return {
+    ...task,
+    completed: task.completed ? true : false,
+  };
+};
+
 module.exports = {
   readTasks,
   writeTasks,
+  taskSerializer,
 };
