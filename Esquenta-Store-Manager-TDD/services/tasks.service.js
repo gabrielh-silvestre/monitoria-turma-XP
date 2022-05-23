@@ -1,13 +1,13 @@
 const { TaskModel } = require('../model/tasks.model');
 
 const findAll = async () => {
-  const tasks = TaskModel.findAll();
+  const tasks = await TaskModel.findAll();
 
   return tasks;
 };
 
 const create = async ({ title, description, completed }) => {
-  const taskAlreadyExists = TaskModel.findByTitle({ title });
+  const taskAlreadyExists = await TaskModel.findByTitle({ title });
 
   if (taskAlreadyExists) {
     return {
@@ -48,7 +48,7 @@ const update = async ({ id, title, description, completed }) => {
 };
 
 const destroy = async ({ id }) => {
-  const taskExists = await TaskModel.findByTitle({ id });
+  const taskExists = await TaskModel.findById({ id });
 
   if (!taskExists) {
     return {
@@ -57,7 +57,7 @@ const destroy = async ({ id }) => {
     };
   }
 
-  await TaskModel.destroy({ id: Number(id) });
+  await TaskModel.destroy({ id });
 
   return {
     statusCode: 204,
