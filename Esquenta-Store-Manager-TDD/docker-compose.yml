@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    restart: on-failure
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=${DB_DATABASE}
+  backend:
+    image: node:16-alpine
+    restart: always
+    working_dir: /app/api
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - db
+    volumes:
+      - .:/app/api
+    stdin_open: true
+    tty: true
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=db
