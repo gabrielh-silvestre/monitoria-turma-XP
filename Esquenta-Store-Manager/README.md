@@ -17,20 +17,62 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
   <summary><strong>Antes de começar a desenvolver</strong></summary><br />
   
   1. Clone o repositório
-  * `gitt clone git@github.com:gabrielh-silvestre/monitoria-turma-XP.git`.
-  * Entre na pasta do repositório que você acabou de clonar:
+  * `git clone git@github.com:gabrielh-silvestre/monitoria-turma-XP.git`.
+   * Altere para a branch ```esquenta.store.manager```,
+~~~json
+git checkout esquenta.store.manager
+~~~
+  * Entre na pasta do projeto ,
+  ```Esquenta Store Manager```.
+
 
   Instale as dependencias com  `npm install`;
 
   2. **ATENÇÂO**
-    - Os pacotes para a criação da API **não** veem instalados
+    - Os pacotes para a criação da API **NÃO** estão instalados
+
+</details>
+
+<details>
+  <summary><strong>Docker</strong></summary><br />
+  
+  1. Para executar a aplicação, será necessário criar os containers de mysql e node:
+
+~~~json
+docker-compose up -d --build
+~~~
+
+  2. Esse comando criará um banco de dados na porta 3306, então certifique-se de que não haverá nenhum banco rodando nessa porta
+
+  3. Para rodar a aplicação, será necessário entrar no container de node:
+
+~~~json
+docker exec -it esquenta_monitoria bash
+~~~
+
+  E logo depois rodar o comando:
+
+~~~json
+npm run dev
+~~~
 
 </details>
 
 <details>
   <summary><strong>Implementações Técnicas</strong></summary><br />
   
-  1. Para executar os testes, a API *NÃO DEVE* estar em execução, os testes utiliza a mesma porta de sua API, portanto pode causar conflitos
+  1. Para executar os testes, a API *DEVE* estar em execução
+  2. Toda vez que rodar os testes, o seu banco será *DERRUBADO*, então rode o comando
+
+~~~json
+npm run restore
+~~~
+
+  3. **ATENÇÂO**
+    - O arquivo EsquentaMonitoria.sql não pode ser alterado ou excluído
+
+  4. Esse projeto utilizará variáveis de ambiente
+    - O arquivo .env não pode ser alterado ou excluído
 
 </details>
 
@@ -177,16 +219,16 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
   2. Será validado que é possível editar uma pessoas palestrante com sucesso
     - a resposta da API deve ser a seguinte mensagem
 
-  ```json
-    {
-      "idTalker": "1",
-      "nameTalker": "João da Matta",
-      "ageTalker": 22,
-      "emailTalker": "joao.matta@gmail.com"
-    }
-  ```
+```json
+  {
+    "idTalker": "1",
+    "nameTalker": "João da Matta",
+    "ageTalker": 22,
+    "emailTalker": "joao.matta@gmail.com"
+  }
+```
 
-    3. Será validado que não é possível editar uma pessoa palestrante sem nome
+  3. Será validado que não é possível editar uma pessoa palestrante sem nome
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
     
   ```json
@@ -197,7 +239,7 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
     
   ```json
-    { "message": '"name" length must be at least 6 characters long' }
+    { "message": '"name" length must be at least 4 characters long' }
   ```
 
   5. Será validado que não é possível editar uma pessoa palestrante sem a idade
@@ -211,7 +253,7 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
-    { "message": 'The speaker must be of legal age' }
+    { "message": '"age" must be greater than or equal to 18' }
   ```
 
   7. Será validado que não é possível editar uma pessoa palestrante sem o email
@@ -222,10 +264,17 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
   ```
 
   8. Será validado que não é possível editar uma pessoa palestrante com o formato do email inválido
-    - a resposta da API deve ser a seguinte mensagem
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
     { "message": '"email" must be a valid email' }
+  ```
+
+  9. Será validado que não é possível editar uma pessoa palestrante que não existe
+    - sua API deve responder com o status ```400``` com com o body no seguinte formato
+
+  ```json
+    { "message": '"talker" not found' }
   ```
 </details>
 
@@ -233,8 +282,15 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
 <details>
   <summary><strong>Implemente o endpoint DELETE /talkers/:id</strong></summary><br />
 
-  1. Implemente o endpoint PUT /task/:id para que possa deletar tarefas no arquivo task.json.
+  1. Implemente o endpoint PUT /talkers/:id para que possa deletar uma pessoa palestrante
      - A pessoa palestrante que será deletada, será passado pelo endpoint /:id
   
-  2. Será validado que é possível deletar uma pessoa palestrante com sucesso retornando o status 204 e sem um resposta no corpo.
+  2. Será validado que é possível deletar uma pessoa palestrante com sucesso retornando o status 200 e sem um resposta no corpo.
+
+  3. Será validado que não é possível deletar uma pessoa palestrante que não existe.
+     - sua API deve responder com o status ```400``` com com o body no seguinte formato
+
+```json
+{ "message": '"talker" not found' }
+```
 </details>
