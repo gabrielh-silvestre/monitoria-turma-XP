@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Ler o Course",
+    "description": "Ver o Bloco 20.4",
+    "completed": false
+  },
+  {
+    "id": 2,
+    "title": "Fazer os exercícios",
+    "description": "Fazer os exercícios do dia",
+    "completed": false
+  },
+  {
+    "id": 3,
+    "title": "Fazer os testes",
+    "description": "Fazer os testes do projeto",
+    "completed": true
+  },
+  {
+    "id": 4,
+    "title": "Fazer o deploy",
+    "description": "Fazer o deploy do projeto",
+    "completed": true
+  },
+  {
+    "id": 5,
+    "title": "Começar o Talker Manager",
+    "description": "Começar o projeto do bloco 22",
+    "completed": false
+  }
+]
