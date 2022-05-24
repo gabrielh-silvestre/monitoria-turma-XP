@@ -48,7 +48,7 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
 <details>
   <summary><strong>Implemente o endpoint GET /talkers</strong></summary><br />
   
-  1. Implemente o endpoint GET /talkers para que retorne todos os talkers do banco de dados.
+  1. Implemente o endpoint GET /talkers para que retorne todos as pessoas palestrantes do banco de dados.
 
   2. O endpoint deve retornar o status 200 com o seguinte corpo: 
 
@@ -135,7 +135,7 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
     
   ```json
-    { "message": '"name" length must be at least 6 characters long' }
+    { "message": '"name" length must be at least 4 characters long' }
   ```
 
   5. Será validado que não é possível cadastrar uma nova pessoa palestrante sem a idade
@@ -149,14 +149,14 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
-    { "message": 'The speaker must be of legal age' }
+    { "message": '"age" must be greater than or equal to 18' }
   ```
 
   7. Será validado que não é possível cadastrar uma nova pessoa palestrante sem o email
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
-    { "message": '"age" is required' }
+    { "message": '"email" is required' }
   ```
 
   8. Será validado que não é possível cadastrar uma nova pessoa palestrante com o formato do email inválido
