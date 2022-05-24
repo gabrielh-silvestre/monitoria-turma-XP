@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha tests/**/*spec.js --exit",
     "test:unit": "mocha tests/unit/**/*spec.js --exit",
+    "test:coverage": "nyc -x helpers npm run test:unit",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "posttest": "node tests/dbReset.js",
@@ -27,6 +28,7 @@
     "chai-http": "^4.3.0",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.16",
+    "nyc": "^15.1.0",
     "sinon": "^14.0.0"
   }
 }
