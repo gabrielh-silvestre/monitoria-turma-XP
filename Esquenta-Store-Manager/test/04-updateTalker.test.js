@@ -149,8 +149,6 @@ describe('04 - Crie o endpoint PUT /talkers/:id', () => {
         .then((response) => {
           let { json } = response;
 
-          console.log(json);
-
           expect(json).toHaveProperty('idTalker');
           expect(json).toHaveProperty('nameTalker');
           expect(json).toHaveProperty('ageTalker');
@@ -190,8 +188,6 @@ describe('04 - Crie o endpoint PUT /talkers/:id', () => {
         .expect('status', 200)
         .then((response) => {
           let { json } = response;
-
-          console.log(json);
 
           expect(json).toHaveProperty('idTalker');
           expect(json).toHaveProperty('nameTalker');

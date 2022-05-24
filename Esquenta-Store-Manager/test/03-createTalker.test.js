@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const restoreDb = require('./restoreDb');
 require('dotenv').config();
 
-describe('Crie o endpoint POST /talkers', () => {
+describe('03 - Crie o endpoint POST /talkers', () => {
   const url = `http://localhost:${process.env.PORT}`;
   let connection;
 
@@ -132,9 +132,7 @@ describe('Crie o endpoint POST /talkers', () => {
         .expect('status', 201)
         .then((response) => {
           let { json } = response;
-
-          console.log(json);
-
+          
           expect(json).toHaveProperty('idTalker');
           expect(json).toHaveProperty('nameTalker');
           expect(json).toHaveProperty('ageTalker');

@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const restoreDb = require('./restoreDb');
 require('dotenv').config();
 
-describe('2 - Crie o endpoint GET /talkers/:id', () => {
+describe('02 - Crie o endpoint GET /talkers/:id', () => {
   const url = `http://localhost:${process.env.PORT}`;
   let connection;
 
@@ -32,8 +32,6 @@ describe('2 - Crie o endpoint GET /talkers/:id', () => {
         .then((response) => {
           let { json } = response;
 
-          console.log(json);
-
           expect(json).toHaveProperty('idTalker');
           expect(json).toHaveProperty('nameTalker');
           expect(json).toHaveProperty('ageTalker');
@@ -49,8 +47,6 @@ describe('2 - Crie o endpoint GET /talkers/:id', () => {
         .expect('status', 200)
         .then((response) => {
           let { json } = response;
-
-          console.log(json);
 
           expect(json).toHaveProperty('idTalker');
           expect(json).toHaveProperty('nameTalker');
@@ -69,8 +65,6 @@ describe('2 - Crie o endpoint GET /talkers/:id', () => {
         .expect('status', 404)
         .then((response) => {
           let { json } = response;
-
-          console.log(json);
 
           expect(json).toHaveProperty('message');
           expect(json.message).toEqual('"talker" not found');

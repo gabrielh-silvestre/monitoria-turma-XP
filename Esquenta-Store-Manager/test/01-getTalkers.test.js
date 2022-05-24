@@ -32,8 +32,6 @@ describe('01 - Crie o endpoint GET /talkers', () => {
         .then((response) => {
           let { json } = response;
 
-          console.log(json);
-
           expect(json[0]).toHaveProperty('idTalker');
           expect(json[0]).toHaveProperty('nameTalker');
           expect(json[0]).toHaveProperty('ageTalker');

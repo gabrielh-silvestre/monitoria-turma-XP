@@ -8,11 +8,11 @@ const restoreDb = async () => {
         user: MYSQL_USER,
         password: MYSQL_PASSWORD,
         host: MYSQL_HOST,
-      });
+    });
 
-      await importer.import("./EsquentaMonitoria.sql");
+    await importer.import("./EsquentaMonitoria.sql");
 
-      await importer.disconnect();
+    await importer.disconnect();
 };
 
 module.exports = restoreDb;
