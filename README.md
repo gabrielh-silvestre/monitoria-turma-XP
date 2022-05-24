@@ -81,62 +81,85 @@ Aqui você vai encontrar os detalhes de como estruturar sua API utilizando a arq
     ]
   ```
 
-  3. Será validado se retorna um array vazio caso não exista pessoas cadastradas
+</details>
+
+<details>
+  <summary><strong>Implemente o endpoint GET /talkers/:id</strong></summary><br />
+  
+  1. Implemente o endpoint GET /talkers/:id para que retorne apenas uma pessoa palestrante do banco de dados.
+
+  2. O endpoint deve retornar o status 200 com o seguinte corpo: 
+
+  ```json
+    {
+      "idTalker": 1,
+      "nameTalker": "Henrique Albuquerque",
+      "ageTalker": 62,
+      "emailTalker": "henrique.albuquerque10@gmail.com"
+    }      
+  ```
+
+  3. Caso não exista a pessoa palestrante
+    - sua API deve responder com o status ```404``` com com o body no seguinte formato
+
+  ```json
+    { "message": '"talker" not found' }
+  ```
 
 </details>
 
 <details>
   <summary><strong>Implemente o endpoint POST /talkers</strong></summary><br />
 
-  1. Implemente o endpoint POST /talkers para que possa cadastrar novos talkers no banco de dados.
+  1. Implemente o endpoint POST /talkers para que possa cadastrar novas pessoas palestrantes no banco de dados.
 
-  2. Caso o talker seja cadastrado com sucesso sua API deve responder com o status ```201``` com com o body no seguinte formato.
+  2. Caso a pessoas pelastrante seja cadastrada com sucesso, sua API deve responder com o status ```201``` com com o body no seguinte formato.
 
   ```json
     {
-      "idTalker": 6,
+      "idTalker": 5,
       "nameTalker": "João da Matta",
       "ageTalker": 32,
       "emailTalker": "joao.matta2016@gmail.com"
     }
   ```
   
-  3. Será validado que não é possível cadastrar um novo talker sem nome
+  3. Será validado que não é possível cadastrar uma nova pessoa palestrante sem nome
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
     
   ```json
     { "message": '"name" is required' }
   ```
 
-  4. Será validado que não é possível cadastrar um novo talker com o nome menor que quatro caracteres
+  4. Será validado que não é possível cadastrar uma nova pessoa palestrante com o nome menor que quatro caracteres
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
     
   ```json
     { "message": '"name" length must be at least 6 characters long' }
   ```
 
-  5. Será validado que não é possível cadastrar um novo talker sem a idade
+  5. Será validado que não é possível cadastrar uma nova pessoa palestrante sem a idade
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
     { "message": '"age" is required' }
   ```
 
-  6. Será validado que não é possível cadastrar um novo talker se a idade for menor que 18 anos
+  6. Será validado que não é possível cadastrar uma nova pessoa palestrante se a idade for menor que 18 anos
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
     { "message": 'The speaker must be of legal age' }
   ```
 
-  7. Será validado que não é possível cadastrar um novo talker sem o email
+  7. Será validado que não é possível cadastrar uma nova pessoa palestrante sem o email
     - sua API deve responder com o status ```400``` com com o body no seguinte formato
 
   ```json
     { "message": '"age" is required' }
   ```
 
-  8. Será validado que não é possível cadastrar um novo talker com o formato do email inválido
+  8. Será validado que não é possível cadastrar uma nova pessoa palestrante com o formato do email inválido
     - a resposta da API deve ser a seguinte mensagem
 
   ```json
