@@ -1,0 +1,5 @@
+node_modules
+.vscode
+notes.md
+.env
+.nyc_output
