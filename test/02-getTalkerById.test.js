@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const restoreDb = require('./restoreDb');
 require('dotenv').config();
 
-describe('Crie o endpoint /talkers/:id', () => {
+describe('2 - Crie o endpoint GET /talkers/:id', () => {
   const url = `http://localhost:${process.env.PORT}`;
   let connection;
 
