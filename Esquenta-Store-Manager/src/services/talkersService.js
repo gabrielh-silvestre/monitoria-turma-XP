@@ -26,8 +26,8 @@ const getTalkerById = async (id) => {
   return newResponse;
 }
 
-const createTalker = async (id, name, age, email) => {
-  const idNewTalker = await talkersModel.createTalker({ id, name, age, email });
+const createTalker = async (name, age, email) => {
+  const idNewTalker = await talkersModel.createTalker({ name, age, email });
 
   return {
     idTalker: Number(idNewTalker),

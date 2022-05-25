@@ -20,14 +20,13 @@ const getTalkerById = async ({ id }) => {
   return response;
 };
 
-const createTalker = async ({ id, name, age, email }) => {
+const createTalker = async ({name, age, email }) => {
   const query = `
     INSERT INTO talkers (name_talker, age_talker, email_talker)
     VALUES (?, ?, ?)
-    WHERE id_talker = ?
   `;
 
-  const [{ insertId }] = await connection.execute(query, [name, age, email, id]);
+  const [{ insertId }] = await connection.execute(query, [name, age, email]);
 
   return insertId;
 };
