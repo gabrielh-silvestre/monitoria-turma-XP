@@ -27,9 +27,9 @@ const createTalker = async ({ id, name, age, email }) => {
     WHERE id_talker = ?
   `;
 
-  const [response] = await connection.execute(query, [name, age, email, id]);
+  const [{ insertId }] = await connection.execute(query, [name, age, email, id]);
 
-  return response;
+  return insertId;
 };
 
 module.exports = {

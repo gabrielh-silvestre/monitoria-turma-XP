@@ -2,7 +2,7 @@ const talkersModel = require('../models/talkersModel');
 const createObjError = require('../utils/createObjError');
 
 const serialize = (talker) => ({
-  idTalker: talker.id_talker,
+  idTalker: Number(talker.id_talker),
   nameTalker: talker.name_talker,
   ageTalker: talker.age_talker,
   emailTalker: talker.email_talker,
@@ -26,7 +26,19 @@ const getTalkerById = async (id) => {
   return newResponse;
 }
 
+const createTalker = async (id, name, age, email) => {
+  const idNewTalker = await talkersModel.createTalker({ id, name, age, email });
+
+  return {
+    idTalker: Number(idNewTalker),
+    nameTalker: name,
+    ageTalker: age,
+    emailTalker: email,
+  }
+}
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
+  createTalker,
 }
