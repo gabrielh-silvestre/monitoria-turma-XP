@@ -51,7 +51,7 @@ const updateTalker = async (id, name, age, email) => {
 
 const deleteTalker = async (id) => {
   await getTalkerById(id);
-  await talkersModel.deleteTalker(id);
+  await talkersModel.deleteTalker({ id });
 }
 
 module.exports = {
