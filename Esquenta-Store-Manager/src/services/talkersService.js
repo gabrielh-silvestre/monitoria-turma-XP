@@ -17,7 +17,7 @@ const getAllTalkers = async () => {
 }
 
 const getTalkerById = async (id) => {
-  const response = await talkersModel.getAllTalkers({ id });
+  const response = await talkersModel.getTalkerById({ id });
 
   if(!response.length) throw createObjError(404, '"talker" not found');
 
