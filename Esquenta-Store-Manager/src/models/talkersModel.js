@@ -41,9 +41,19 @@ const updateTalker = async ({ id, name, age, email }) => {
   await connection.execute(query, [name, age, email, id]);
 };
 
+const deleteTalker = async ({ id }) => {
+  const query = `
+    DELETE FROM talkers
+    WHERE id_talker = ?
+  `;
+
+  await connection.execute(query, [id]);
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   createTalker,
   updateTalker,
+  deleteTalker,
 }
