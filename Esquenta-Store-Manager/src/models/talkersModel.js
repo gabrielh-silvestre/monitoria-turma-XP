@@ -10,7 +10,7 @@ const getAllTalkers = async () => {
   return response;
 };
 
-const getAllTalkerById = async ({ id }) => {
+const getTalkerById = async ({ id }) => {
   const query = `
     SELECT * FROM talkers WHERE id_talker = ?
   `;
@@ -22,5 +22,5 @@ const getAllTalkerById = async ({ id }) => {
 
 module.exports = {
   getAllTalkers,
-  getAllTalkerById
+  getTalkerById,
 }

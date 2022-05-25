@@ -1,4 +1,5 @@
 const talkersModel = require('../models/talkersModel');
+const createObjError = require('../utils/createObjError');
 
 const serialize = (talker) => ({
   idTalker: talker.id_talker,
@@ -15,6 +16,17 @@ const getAllTalkers = async () => {
   return newResponse;
 }
 
+const getTalkerById = async (id) => {
+  const response = await talkersModel.getAllTalkers({ id });
+
+  if(!response.length) throw createObjError(404, '"talker" not found');
+
+  const newResponse = serialize(response);
+
+  return newResponse;
+}
+
 module.exports = {
   getAllTalkers,
+  getTalkerById,
 }
