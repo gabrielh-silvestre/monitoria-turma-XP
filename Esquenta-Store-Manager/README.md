@@ -211,7 +211,7 @@ npm run restore
 
 
 <details>
-  <summary><strong>Implemente o endpoint PUT /talker</strong></summary><br />
+  <summary><strong>Implemente o endpoint PUT /talker/:id</strong></summary><br />
 
   1. Implemente o endpoint PUT /talker/:id para que possa editar talkers no banco de dados.
     - A pessoa palestrante que será editada, será passado pelo endpoint /:id

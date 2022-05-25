@@ -160,7 +160,7 @@ describe('04 - Crie o endpoint PUT /talkers/:id', () => {
         });
 
       await frisby
-        .get(`${url}/talkers`,)
+        .get(`${url}/talkers`)
         .expect('status', 200)
         .then((response) => {
           let { json } = response;

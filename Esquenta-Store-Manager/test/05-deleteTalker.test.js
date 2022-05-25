@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const restoreDb = require('./restoreDb');
 require('dotenv').config();
 
-describe('04 - Crie o endpoint DELETE /talkers/:id', () => {
+describe('05 - Crie o endpoint DELETE /talkers/:id', () => {
   const url = `http://localhost:${process.env.PORT}`;
   let connection;
 
