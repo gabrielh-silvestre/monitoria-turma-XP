@@ -42,7 +42,7 @@ const updateTalker = async (id, name, age, email) => {
   await talkersModel.updateTalker({ id, name, age, email });
 
   return {
-    idTalker: Number(idNewTalker),
+    idTalker: Number(id),
     nameTalker: name,
     ageTalker: age,
     emailTalker: email,

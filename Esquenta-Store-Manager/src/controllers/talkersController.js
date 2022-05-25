@@ -27,7 +27,7 @@ const updateTalker = async (req, res) => {
 
   const response = await talkersService.updateTalker(id, name, age, email);
 
-  return res.status(201).json(response);
+  return res.status(200).json(response);
 }
 
 module.exports = {

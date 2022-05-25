@@ -6,5 +6,6 @@ const validateTalker = require('../middlewares/validateTalker');
 route.get('/', rescue(talkersController.getAllTalkers));
 route.get('/:id', rescue(talkersController.getTalkerById));
 route.post('/', rescue(validateTalker), rescue(talkersController.createTalker));
+route.put('/:id', rescue(validateTalker), rescue(talkersController.updateTalker));
 
 module.exports = route;
