@@ -14,5 +14,6 @@ const getTalkerById = async (req, res) => {
 }
 
 module.exports = {
-  getAllTalkers
+  getAllTalkers,
+  getTalkerById
 };

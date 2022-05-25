@@ -21,7 +21,7 @@ const getTalkerById = async (id) => {
 
   if(!response.length) throw createObjError(404, '"talker" not found');
 
-  const newResponse = serialize(response);
+  const newResponse = serialize(response[0]);
 
   return newResponse;
 }
