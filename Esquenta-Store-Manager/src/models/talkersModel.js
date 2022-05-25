@@ -20,7 +20,7 @@ const getTalkerById = async ({ id }) => {
   return response;
 };
 
-const createTalker = async ({name, age, email }) => {
+const createTalker = async ({ name, age, email }) => {
   const query = `
     INSERT INTO talkers (name_talker, age_talker, email_talker)
     VALUES (?, ?, ?)
@@ -31,8 +31,19 @@ const createTalker = async ({name, age, email }) => {
   return insertId;
 };
 
+const updateTalker = async ({ id, name, age, email }) => {
+  const query = `
+    UPDATE talkers 
+    SET name_talker = ?, age_talker = ? , email_talker = ?
+    WHERE id_talker = ?
+  `;
+
+  await connection.execute(query, [name, age, email, id]);
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   createTalker,
+  updateTalker,
 }
