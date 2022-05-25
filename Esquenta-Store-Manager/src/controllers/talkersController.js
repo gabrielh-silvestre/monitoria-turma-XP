@@ -30,9 +30,18 @@ const updateTalker = async (req, res) => {
   return res.status(200).json(response);
 }
 
+const deleteTalker = async (req, res) => {
+  const { id } = req.params;
+
+  await talkersService.deleteTalker(id);
+
+  return res.status(200).end();
+}
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   createTalker,
-  updateTalker
+  updateTalker,
+  deleteTalker
 };
