@@ -10,6 +10,17 @@ const getAllTalkers = async () => {
   return response;
 };
 
+const getAllTalkerById = async ({ id }) => {
+  const query = `
+    SELECT * FROM talkers WHERE id_talker = ?
+  `;
+
+  const [response] = await connection.execute(query, [id]);
+
+  return response;
+};
+
 module.exports = {
   getAllTalkers,
+  getAllTalkerById
 }
