@@ -1,4 +1,5 @@
 const express = require('express');
+const errorHandler = require('./middlewares/errorHandle');
 require('dotenv').config();
 const talkersRoutes = require('./routes/talkersRoutes');
 
@@ -7,6 +8,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use('/talkers', talkersRoutes);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`O pai ta on na porta ${PORT}`);
