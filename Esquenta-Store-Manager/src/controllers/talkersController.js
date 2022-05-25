@@ -13,7 +13,17 @@ const getTalkerById = async (req, res) => {
   return res.status(200).json(response);
 }
 
+const createTalker = async (req, res) => {
+  const { id } = req.params;
+  const { name, age, email } = req.body;
+
+  const response = await talkersService.createTalker(id, name, age, email);
+
+  return res.status(200).json(response);
+}
+
 module.exports = {
   getAllTalkers,
-  getTalkerById
+  getTalkerById,
+  createTalker
 };
