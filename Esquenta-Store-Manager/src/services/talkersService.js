@@ -37,8 +37,21 @@ const createTalker = async (name, age, email) => {
   }
 }
 
+const updateTalker = async (id, name, age, email) => {
+  await getTalkerById(id);
+  await talkersModel.updateTalker({ id, name, age, email });
+
+  return {
+    idTalker: Number(idNewTalker),
+    nameTalker: name,
+    ageTalker: age,
+    emailTalker: email,
+  }
+}
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   createTalker,
+  updateTalker
 }
