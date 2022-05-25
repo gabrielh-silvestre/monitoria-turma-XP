@@ -21,8 +21,18 @@ const createTalker = async (req, res) => {
   return res.status(201).json(response);
 }
 
+const updateTalker = async (req, res) => {
+  const { name, age, email } = req.body;
+  const { id } = req.params;
+
+  const response = await talkersService.updateTalker(id, name, age, email);
+
+  return res.status(201).json(response);
+}
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
-  createTalker
+  createTalker,
+  updateTalker
 };
