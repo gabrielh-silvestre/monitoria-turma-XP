@@ -7,10 +7,8 @@ services:
     ports:
       - ${DB_PORT}:3306
     environment:
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_RANDOM_ROOT_PASSWORD=true
-      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
@@ -32,8 +30,8 @@ services:
     stdin_open: true
     tty: true
     environment:
-      - DB_USER=${DB_USER}
+      - DB_USER=root
       - DB_PASSWORD=${DB_PASSWORD}
-      - DB_DATABASE=${DB_DATABASE}
+      - DB_NAME=${DB_NAME}
       - DB_PORT=${DB_PORT}
       - DB_HOST=db
