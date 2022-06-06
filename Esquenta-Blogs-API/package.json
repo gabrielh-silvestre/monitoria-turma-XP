@@ -9,7 +9,8 @@
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npm run db:migrate && npm run db:seed",
     "predev": "npm run db:reset",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage"
   },
   "keywords": [],
   "author": "",
@@ -26,11 +27,9 @@
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
-    "chai-http": "^4.3.0",
-    "mocha": "^10.0.0",
+    "frisby": "^2.1.3",
+    "jest": "^28.1.0",
     "nodemon": "^2.0.16",
-    "sequelize-cli": "^6.4.1",
-    "sinon": "^14.0.0"
+    "sequelize-cli": "^6.4.1"
   }
 }
