@@ -22,7 +22,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql-import": "^5.0.21",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.20.1"
+    "sequelize": "^6.20.1",
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "chai": "^4.3.6",
