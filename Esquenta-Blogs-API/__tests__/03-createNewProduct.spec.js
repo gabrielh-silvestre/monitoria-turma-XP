@@ -4,9 +4,9 @@ const shell = require('shelljs');
 const BASE_URL = 'http://localhost:3001';
 
 describe('3 - Testa o endpoint POST /products', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop');
-    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');
+  beforeEach(() => {
+    shell.exec('npx sequelize db:drop', { silent: true });
+    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate', { silent: true });
   });
 
   it('Deve criar um novo produto', async () => {
@@ -123,6 +123,13 @@ describe('3 - Testa o endpoint POST /products', () => {
   });
 
   it('Deve conter somente um produto criado', async () => {
+    await frisby
+    .post(`${BASE_URL}/products`, {
+      name: 'Capa superman',
+      quantity: 50,
+    })
+    .expect('status', 201);
+
     const response = await frisby
       .get(`${BASE_URL}/products`)
       .expect('status', 200);

@@ -4,10 +4,14 @@ const shell = require('shelljs');
 const BASE_URL = 'http://localhost:3001';
 
 describe('4 - Testa o endpoint POST /sales', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop');
-    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');
-    shell.exec('npx sequelize-cli db:seed --seed 20220606191737-products.js');
+  beforeEach(() => {
+    shell.exec('npx sequelize db:drop', { silent: true });
+    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate', {
+      silent: true,
+    });
+    shell.exec('npx sequelize-cli db:seed --seed 20220606191737-products.js', {
+      silent: true,
+    });
   });
 
   it('Deve criar uma nova venda', async () => {
@@ -27,12 +31,7 @@ describe('4 - Testa o endpoint POST /sales', () => {
     const result = JSON.parse(response.body);
 
     expect(result).toHaveProperty('id');
-    expect(result).toHaveProperty('saleProducts');
-
-    expect(result.saleProducts).toBeInstanceOf(Array);
-    expect(result.saleProducts[0]).toHaveProperty('id');
-    expect(result.saleProducts[0]).toHaveProperty('name');
-    expect(result.saleProducts[0]).toHaveProperty('quantity');
+    expect(result).toHaveProperty('date');
   });
 
   it('Não deve criar uma nova venda sem produtos', async () => {
@@ -61,7 +60,10 @@ describe('4 - Testa o endpoint POST /sales', () => {
 
     const result = JSON.parse(response.body);
 
-    expect(result).toHaveProperty('message', '"quantity" must be equal than 0');
+    expect(result).toHaveProperty(
+      'message',
+      '"quantity" must be a positive number'
+    );
   });
 
   it('Não deve criar uma nova venda com produtos inexistentes', async () => {
@@ -119,7 +121,14 @@ describe('4 - Testa o endpoint POST /sales', () => {
     expect(result).toHaveProperty('message', '"productId" is required');
   });
 
-  it('Deve conter somente duas vendas criadas', async () => {
+  it('Deve conter somente a venda criada', async () => {
+    await frisby
+      .post(`${BASE_URL}/sales`, [
+        { productId: 1, quantity: 5 },
+        { productId: 2, quantity: 10 },
+      ])
+      .expect('status', 201);
+
     const response = await frisby
       .get(`${BASE_URL}/sales`)
       .expect('status', 200);
@@ -147,6 +156,13 @@ describe('4 - Testa o endpoint POST /sales', () => {
   });
 
   it('Deve diminuir a quantidade dos produtos', async () => {
+    await frisby
+      .post(`${BASE_URL}/sales`, [
+        { productId: 1, quantity: 5 },
+        { productId: 2, quantity: 10 },
+      ])
+      .expect('status', 201);
+
     const response = await frisby
       .get(`${BASE_URL}/products`)
       .expect('status', 200);

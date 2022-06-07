@@ -4,10 +4,12 @@ const shell = require('shelljs');
 const BASE_URL = 'http://localhost:3001';
 
 describe('2- Testa o endpoint GET /sales', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop');
-    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');
-    shell.exec('npx sequelize db:seed:all');
+  beforeEach(() => {
+    shell.exec('npx sequelize db:drop', { silent: true });
+    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate', {
+      silent: true,
+    });
+    shell.exec('npx sequelize db:seed:all', { silent: true });
   });
 
   it('Deve retornar a lista de vendas com seus respectivos produtos', async () => {

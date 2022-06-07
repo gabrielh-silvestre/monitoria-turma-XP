@@ -4,10 +4,12 @@ const shell = require('shelljs');
 const BASE_URL = 'http://localhost:3001';
 
 describe('5 - Testa o endpoint PUT /products', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop');
-    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');
-    shell.exec('npx sequelize-cli db:seed:all');
+  beforeEach(() => {
+    shell.exec('npx sequelize db:drop', { silent: true });
+    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate', {
+      silent: true,
+    });
+    shell.exec('npx sequelize-cli db:seed:all', { silent: true });
   });
 
   it('Deve atualizar um produto', async () => {
@@ -95,6 +97,13 @@ describe('5 - Testa o endpoint PUT /products', () => {
   });
 
   it('Deve alterar os campos de um produto', async () => {
+    await frisby
+      .put(`${BASE_URL}/products/1`, {
+        name: 'Martelo do Hulk',
+        quantity: 20,
+      })
+      .expect('status', 200);
+
     const response = await frisby
       .get(`${BASE_URL}/products`)
       .expect('status', 200);

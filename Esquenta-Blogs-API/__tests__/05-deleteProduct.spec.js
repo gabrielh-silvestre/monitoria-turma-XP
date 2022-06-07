@@ -4,10 +4,12 @@ const shell = require('shelljs');
 const BASE_URL = 'http://localhost:3001';
 
 describe('5 - Testa o endpoint DELETE /products/:id', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop');
-    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate');
-    shell.exec('npx sequelize-cli db:seed:all');
+  beforeEach(() => {
+    shell.exec('npx sequelize db:drop', { silent: true });
+    shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate', {
+      silent: true,
+    });
+    shell.exec('npx sequelize-cli db:seed:all', { silent: true });
   });
 
   it('Deve deletar um produto', async () => {
@@ -25,6 +27,8 @@ describe('5 - Testa o endpoint DELETE /products/:id', () => {
   });
 
   it('Deve deletar o produto e suas vendas', async () => {
+    await frisby.delete(`${BASE_URL}/products/1`).expect('status', 204);
+
     const productsResponse = await frisby
       .get(`${BASE_URL}/products`)
       .expect('status', 200);
