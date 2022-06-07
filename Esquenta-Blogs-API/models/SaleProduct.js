@@ -1,43 +1,47 @@
 module.exports = (sequelize, DataTypes) => {
-  const SaleProduct = sequelize.define('SaleProduct', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    saleId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      foreignKey: true,
-      field: 'sale_id',
-      references: {
-        model: 'sales',
-        key: 'id',
+  const SaleProduct = sequelize.define(
+    'SaleProduct',
+    {
+      saleId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        foreignKey: true,
+        field: 'sale_id',
+        references: {
+          model: 'sales',
+          key: 'id',
+        },
+      },
+      productId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        foreignKey: true,
+        field: 'product_id',
+        references: {
+          model: 'products',
+          key: 'id',
+        },
       },
     },
-    productId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      foreignKey: true,
-      field: 'product_id',
-      references: {
-        model: 'products',
-        key: 'id',
-      },
-    },
-  });
+    {
+      timestamps: false,
+      tableName: 'sales_products',
+    }
+  );
 
   SaleProduct.associate = (models) => {
-    SaleProduct.belongsTo(models.Sale, {
-      foreignKey: 'saleId',
+    models.Product.belongsToMany(models.Sale, {
       as: 'sales',
-      targetKey: 'id',
+      through: SaleProduct,
+      foreignKey: 'product_id',
+      otherKey: 'sale_id',
     });
 
-    SaleProduct.belongsTo(models.Product, {
-      foreignKey: 'productId',
+    models.Sale.belongsToMany(models.Product, {
       as: 'products',
-      targetKey: 'id',
+      through: SaleProduct,
+      foreignKey: 'sale_id',
+      otherKey: 'product_id',
     });
   };
 
