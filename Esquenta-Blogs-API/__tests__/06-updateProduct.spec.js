@@ -74,7 +74,7 @@ describe('5 - Testa o endpoint PUT /products', () => {
 
     expect(result).toHaveProperty(
       'message',
-      '"quantity" must be larger than or equal to 0'
+      '"quantity" must be a positive number'
     );
   });
 

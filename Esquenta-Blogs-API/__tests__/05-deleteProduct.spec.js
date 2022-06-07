@@ -11,11 +11,7 @@ describe('5 - Testa o endpoint DELETE /products/:id', () => {
   });
 
   it('Deve deletar um produto', async () => {
-    const response = await frisby
-      .delete(`${BASE_URL}/products/1`)
-      .expect('status', 204);
-
-    expect(response.body).toBeEmpty();
+    await frisby.delete(`${BASE_URL}/products/1`).expect('status', 204);
   });
 
   it('Não deve deletar um produto inexistente', async () => {
@@ -50,6 +46,7 @@ describe('5 - Testa o endpoint DELETE /products/:id', () => {
       .expect('status', 200);
 
     const sales = JSON.parse(salesResponse.body);
+    console.log(sales);
 
     expect(sales).toBeInstanceOf(Array);
     expect(sales).toHaveLength(2);

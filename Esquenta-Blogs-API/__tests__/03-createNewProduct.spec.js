@@ -102,7 +102,7 @@ describe('3 - Testa o endpoint POST /products', () => {
 
     expect(result).toHaveProperty(
       'message',
-      '"quantity" must be greater than or equal to 0'
+      '"quantity" must be a positive number'
     );
   });
 
@@ -118,7 +118,7 @@ describe('3 - Testa o endpoint POST /products', () => {
 
     expect(result).toHaveProperty(
       'message',
-      '"quantity" must be greater than or equal to 0'
+      '"quantity" must be a positive number'
     );
   });
 
