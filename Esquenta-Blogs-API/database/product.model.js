@@ -14,7 +14,7 @@ const findById = async ({ id }) => {
 const findByName = async ({ name }) => {
   const product = await Product.findOne({ where: { name } });
 
-  return product[0] || null;
+  return product ? product[0] : null;
 };
 
 const create = async ({ name, quantity }) => {
