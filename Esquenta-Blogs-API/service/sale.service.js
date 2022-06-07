@@ -1,6 +1,7 @@
-const { InternalError } = require('restify-errors');
+const { NotFoundError, InternalError } = require('restify-errors');
 
 const SaleModel = require('../database/sale.model');
+const ProductModel = require('../database/product.model');
 
 const findAll = async () => {
   const sale = await SaleModel.findAll();
@@ -12,6 +13,18 @@ const findAll = async () => {
 };
 
 const create = async (products) => {
+  const productsExists = products.map(async ({ productId }) => {
+    const product = await ProductModel.findById({ id: productId });
+
+    if (!product) {
+      throw new NotFoundError('Product not found');
+    }
+
+    return product;
+  });
+
+  await Promise.all(productsExists);
+
   const sale = await SaleModel.create(products);
 
   if (!sale) {
