@@ -18,15 +18,19 @@ const create = async (products) => {
   const createTransaction = await sequelize.transaction();
 
   try {
-    const sale = await Sale.create({ transaction: createTransaction });
+    const sale = await Sale.create();
 
     const attProducts = products.map(async (p) => {
-      const product = await Product.findByPk(p.id);
+      const product = await Product.findByPk(p.productId);
 
       product.quantity -= p.quantity;
-      await product.save({ transaction: createTransaction });
+      await product.save();
 
-      await SaleProduct.create({ saleId: sale.id, productId: p.id });
+      await SaleProduct.create({
+        saleId: sale.id,
+        productId: p.productId,
+        quantity: p.quantity,
+      });
 
       return product;
     });
