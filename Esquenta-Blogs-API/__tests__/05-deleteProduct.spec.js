@@ -46,7 +46,6 @@ describe('5 - Testa o endpoint DELETE /products/:id', () => {
       .expect('status', 200);
 
     const sales = JSON.parse(salesResponse.body);
-    console.log(sales);
 
     expect(sales).toBeInstanceOf(Array);
     expect(sales).toHaveLength(2);
@@ -56,7 +55,7 @@ describe('5 - Testa o endpoint DELETE /products/:id', () => {
     expect(sales[0]).toHaveProperty('products');
 
     expect(sales[0].products).toBeInstanceOf(Array);
-    expect(sales[0].products).toHaveLength(2);
+    expect(sales[0].products).toHaveLength(1);
     expect(sales[0].products[0]).toHaveProperty('id');
     expect(sales[0].products[0]).toHaveProperty(
       'name',
