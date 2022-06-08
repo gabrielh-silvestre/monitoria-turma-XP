@@ -1,43 +1,26 @@
-const { Product } = require('../database/models');
-
 const findAll = async () => {
   const product = await Product.findAll();
   return product;
 };
 
 const findById = async ({ id }) => {
-  const product = await Product.findByPk(id);
-
-  return product;
+  // retorna um produto ou null caso não exista
 };
 
 const findByName = async ({ name }) => {
-  const product = await Product.findOne({ where: { name } });
-
-  return product ? product[0] : null;
+  // retorna um produto ou null caso não exista
 };
 
 const create = async ({ name, quantity }) => {
-  const product = await Product.create({ name, quantity });
-  return product;
+  // retorna o produto criado
 };
 
 const update = async ({ id, name, quantity }) => {
-  const product = await Product.findByPk(id);
-
-  product.name = name;
-  product.quantity = quantity;
-  await product.save();
-
-  return product;
+  // retorna o produto atualizado
 };
 
 const remove = async ({ id }) => {
-  const product = await Product.findByPk(id);
-
-  await product.destroy();
-
-  return true;
+  // não retorna nada
 };
 
 module.exports = { findAll, findById, findByName, create, update, remove };
