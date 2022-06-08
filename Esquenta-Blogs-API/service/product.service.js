@@ -1,6 +1,6 @@
 const { ConflictError, NotFoundError } = require('restify-errors');
 
-const ProductModel = require('../database/product.model');
+const ProductModel = require('../model/product.model');
 
 const findAll = async () => {
   const products = await ProductModel.findAll();

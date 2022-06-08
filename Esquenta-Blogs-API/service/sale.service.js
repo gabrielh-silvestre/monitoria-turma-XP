@@ -1,7 +1,7 @@
 const { NotFoundError, InternalError } = require('restify-errors');
 
-const SaleModel = require('../database/sale.model');
-const ProductModel = require('../database/product.model');
+const SaleModel = require('../model/sale.model');
+const ProductModel = require('../model/product.model');
 
 const findAll = async () => {
   const sale = await SaleModel.findAll();

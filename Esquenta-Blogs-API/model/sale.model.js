@@ -1,4 +1,4 @@
-const { Sale, Product, SaleProduct, sequelize } = require('../models');
+const { Sale, Product, SaleProduct, sequelize } = require('../database/models');
 
 const findAll = async () => {
   const sale = await Sale.findAll({
