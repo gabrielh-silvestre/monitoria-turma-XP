@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.0
+    restart: on-failure
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE
+  backend:
+    image: node:16-alpine
+    restart: always
+    working_dir: /app/api
+    command: npm run dev
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app/api
+    stdin_open: true
+    tty: true
+    environment:
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=db

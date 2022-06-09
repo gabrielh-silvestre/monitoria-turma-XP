@@ -1,0 +1,36 @@
+{
+  "name": "esquenta-blogs-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npm run db:migrate && npm run db:seed",
+    "predev": "npm run db:reset",
+    "dev": "nodemon index.js",
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-rescue": "^1.1.31",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql-import": "^5.0.21",
+    "mysql2": "^2.3.3",
+    "restify-errors": "^8.0.2",
+    "sequelize": "^6.20.1",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "frisby": "^2.1.3",
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.16",
+    "sequelize-cli": "^6.4.1"
+  }
+}
