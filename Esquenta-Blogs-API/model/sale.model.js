@@ -1,9 +1,11 @@
+const { Sale, Product } = require('../database/models')
+
 const findAll = async () => {
   const sale = await Sale.findAll({
     include: [
       {
         model: Product,
-        as: 'products',
+        as: 'product',
         through: { attributes: [] },
       },
     ],
