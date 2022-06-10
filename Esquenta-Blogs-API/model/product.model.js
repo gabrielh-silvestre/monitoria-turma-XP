@@ -1,4 +1,4 @@
-const { Product } = require('../database/models')
+const { Product } = require('../database/models');
 
 const findAll = async () => {
   const product = await Product.findAll();
@@ -6,98 +6,54 @@ const findAll = async () => {
 };
 
 const findById = async ({ id }) => {
-  // formato do parâmetro
-  /*
-    '1' OU 1
-    pode receber um id como string ou number
-  */
+  const product = await Product.findByPk(id);
 
-  // retorna um produto ou null caso não exista
-  /*
-  Produto encontrado:
-
-    {
-      id: 1,
-      name: "Martelo do Thor",
-      quantity: 10,
-    }
-  */
-
-      /*
-  Produto não encontrado:
-
-    null
-  */
+  return product;
 };
 
 const findByName = async ({ name }) => {
-  // formato do parâmetro
-  /*
-    'Martelo do Thor'
-    string
-  */
+  const product = await Product.findOne({ where: { name } });
 
-  // retorna um produto ou null caso não exista
-  /*
-    Produto encontrado:
-
-    {
-      id: 1,
-      name: "Martelo do Thor",
-      quantity: 10,
-    }
-  */
-
-  /*
-    Produto não encontrado:
-
-    null
-  */
+  return product;
 };
 
 const create = async ({ name, quantity }) => {
-  // formato do parâmetro
-  /*
-    'Martelo do Thor', 10
-    {
-      name: string
-      quantity: number
-    }
-  */
+  const newProduct = await Product.create({ name, quantity });
 
-  // retorna o produto criado
-  /*
-    {
-      id: 4,
-      name: "Armadura do Homem de Ferro",
-      quantity: 50,
-    }
-  */
+  return newProduct;
 };
 
 const update = async ({ id, name, quantity }) => {
-  // formato do parâmetro
-  /*
-    '1', 'Trem do Thor', 15
-    {
-      id: number OU string
-      name: string
-      quantity: number
-    }
-  */
+  const product = await Product.findByPk(id);
 
-  // retorna o produto atualizado
-  /*
-    {
-      id: 1,
-      name: "Trem do Thor",
-      quantity: 15,
-    }
-  */
+  product.name = name;
+  product.quantity = quantity;
+  await product.save();
+
+  return product;
+
+  // await Product.update(
+  //   { name, quantity },
+  //   {
+  //     where: {
+  //       id,
+  //     },
+  //   }
+  // );
+
+  // return {
+  //   id,
+  //   name,
+  //   quantity,
+  // };
 };
 
 const remove = async ({ id }) => {
-  // não retorna nada
+  const product = await Product.findByPk(id);
+
+  await product.destroy();
+
+  // await Product.destroy({ where: { id } });
 };
 
 module.exports = { findAll, findById, findByName, create, update, remove };

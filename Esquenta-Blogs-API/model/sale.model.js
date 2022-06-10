@@ -1,11 +1,11 @@
-const { Sale, Product } = require('../database/models')
+const { Sale, Product, SalesProduct } = require('../database/models')
 
 const findAll = async () => {
   const sale = await Sale.findAll({
     include: [
       {
         model: Product,
-        as: 'product',
+        as: 'products',
         through: { attributes: [] },
       },
     ],
@@ -15,27 +15,26 @@ const findAll = async () => {
 };
 
 const create = async (products) => {
-  // Formato do parâmetro
-  /*
-    [
-      {
-        productId: 1,
-        quantity: 10,
-      },
-      {
-        productId: 2,
-        quantity: 20,
-      }
-    ]
-  */
+  const sale = await Sale.create();
 
-  // retorna a venda criada
-  /*
-    {
-      id: 1,
-      date: '2022-06-10T11:51:41.000Z',
-    }
-  */
+  const attProducts = products.map(async ({ productId, quantity }) => {
+    await SalesProduct.create({
+      saleId: sale.id,
+      productId,
+      quantity,
+    });
+
+    const product = await Product.findByPk(productId);
+
+    product.quantity -= quantity;
+    await product.save();
+
+    return product;
+  });
+
+  await Promise.all(attProducts);
+
+  return sale;
 };
 
 module.exports = { findAll, create };
