@@ -8,9 +8,9 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 <details>
   <summary><strong>O que deverá ser desenvolvido</strong></summary><br />
 
-  Hoje, você usará o Sequelize para construir a camada de model de uma aplicação semi-pronta, **revisando** e **praticando** a configuração inicial com o Sequelize-cli.
+  Hoje, você usará o Sequelize para construir as funções básicas de um CRUD, ou seja, implementará leitura, escrita, atualização e deleção de dados a partir dos métodos que os Sequelize nos disponibiliza.
 
-  Você receberá instruções sobre a ordem de desenvolvimento e estrutura das migrations e models.
+  Você receberá instruções sobre o comportamento de cada uma das funções.
 </details>
 
 ---
@@ -42,7 +42,7 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 
   **ATENÇÃO**
   - Os pacotes para a criação da API não veem instalados
-  - É normal o container do Node quebrar até que as migrations sejam implementadas.
+  - Para garantir que seu projeto do esquenta esteja atualizado realize um `git pull origin master`, ou clone o projeto novamente.
 
 </details>
 
@@ -51,11 +51,14 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 <details>
   <summary><strong>Implementações Técnicas</strong></summary><br />
 
-  1. Hoje o dia será focado na construção das migrations e models com o Sequelize, há dois endpoints funcionais para você testar suas migrations e models através do Insomnia, Postman ou ThunderClient.
+  1. Hoje iremos focar nas construções das _queries_ do Sequelize.
 
-  3. Na dinâmica de hoje os únicos testes que deve ser executados são o 01 e o 02, através dos comandos: `npm test 01` e `npm test 02`
+  2. Os arquivos que você terá que alterar estão na pasta model/, essa que está na raiz do projeto.
 
-  2. Para executar os testes, a API **DEVE** estar em execução, os testes fazem requisições diretas a API, então não irão funcionar caso a aplicação não esteja rodando.
+  3. Para executar os testes, a API **DEVE** estar em execução, os testes fazem requisições diretas a API, então não irão funcionar caso a aplicação não esteja rodando.
+
+  **Atenção**
+  - Não altere os parâmetros das funções!!
 
 </details>
 
@@ -94,131 +97,126 @@ Aqui você vai encontrar os detalhes de como estruturar sua API.
 
 
 <details>
-  <summary><strong>Implemente a migration da tabela products</strong></summary><br />
+  <summary><strong>Implemente a função findById de product.model.js</strong></summary><br />
 
-  1. A migration deve cobrir a seguinte estrutura:
+  1. A função `findById` deve retornar o produto encontrado, ou `null` caso nenhum produto seja encontrado:
 
   ``` js
+    // Sucesso, um produto foi encontrado
+
     {
-      id:  // Inteiro, Primary Key
-      name:  // Texto, not null
-      quantity:  // Inteiro, not null
+      id: 1,
+      name: "Martelo do Thor",
+      quantity: 10,
     }
   ```
 
-  2. O nome da tabela **DEVERÁ** ser `products`
+  ``` js
+    // Falha, nenhum produto foi encontrado
 
-  **Dica**: *Utilize as seeders e o arquivo StoreManger.sql como apoio*.
+    null
+  ```
+
+  **Dica**: *Alguns métodos do Sequelize já retornam `null` ao não encontrar o item buscado*.
 
 </details>
 
 ---
 
 <details>
-  <summary><strong>Implemente a migration da tabela sales</strong></summary><br />
+  <summary><strong>Implemente a função findByName de product.model.js</strong></summary><br />
 
-  1. A migration deve cobrir a seguinte estrutura:
+  1. A função `findByName` deve retornar o produto encontrado, ou `null` caso nenhum produto seja encontrado:
+
+  2. A busca tem que ser feita pelo nome exato.
 
   ``` js
+    // Sucesso, um produto foi encontrado
+
     {
-      id:  // Inteiro, Primary Key
-      date:  // Timestamp, not null
+      id: 1,
+      name: "Martelo do Thor",
+      quantity: 10,
     }
   ```
 
-  2. O nome da tabela **DEVERÁ** ser `sales`
+  ``` js
+    // Falha, nenhum produto foi encontrado
 
-  **Dica**: *Utilize as seeders e o arquivo StoreManger.sql como apoio*.
+    null
+  ```
 
 </details>
 
 ---
 
 <details>
-  <summary><strong>Implemente a migration da tabela sales_products</strong></summary><br />
+  <summary><strong>Implemente a função create de product.model.js</strong></summary><br />
 
-  1. A migration deve cobrir a seguinte estrutura:
+  1. A função `create` deve retornar o produto criado:
 
   ``` js
     {
-      productId:  // Inteiro, Primary Key, Foreign Key de products
-      saleId:  // Inteiro, Primary Key, Foreign Key de sales
-      quantity:  // Inteiro not null
+      id: 4,
+      name: "Armadura do Homem de Ferro",
+      quantity: 50,
     }
   ```
 
-  2. O nome da tabela **DEVERÁ** ser `sales_products`
-
-  **Dica**: *Utilize as seeders e o arquivo StoreManger.sql como apoio*.
+  **Dica**: *Diferente do mysql2, o Sequelize retorna o objeto criado por inteiro, não apenas o id inserido*.
 
 </details>
 
 ---
 
 <details>
-  <summary><strong>Implemente a model da tabela products</strong></summary><br />
+  <summary><strong>Implemente a função update de product.model.js</strong></summary><br />
 
-  1. A model deve cobrir a seguinte estrutura:
+  1. A função `update` deve retornar o produto atualizado:
 
   ``` js
     {
-      id:  // Inteiro, Primary Key
-      name:  // Texto, not null
-      quantity:  // Inteiro, not null
+      id: 1,
+      name: "Trem do Thor",
+      quantity: 15,
     }
   ```
 
-  2. A model deve estar associada a tabela `products`
-
-  3. A model **DEVERÁ** se chamar `Product`
-
-  **Dica**: *Utilize as seeders e o arquivo StoreManger.sql como apoio*.
+  **Dica**: *A atualização pode ser feita de formas diferentes!*.
 
 </details>
 
 ---
 
 <details>
-  <summary><strong>Implemente a model da tabela sales</strong></summary><br />
+  <summary><strong>Implemente a função remove de product.model.js</strong></summary><br />
 
-  1. A model deve cobrir a seguinte estrutura:
+  1. A função `remove` NÃO DEVE ter retorno:
 
-  ``` js
-    {
-      id:  // Inteiro, Primary Key
-      date:  // Timestamp, not null
-    }
-  ```
-
-  2. A model deve estar associada a tabela `sales`
-
-  3. A model **DEVERÁ** se chamar `Sale`
-
-  **Dica**: *Utilize as seeders e o arquivo StoreManger.sql como apoio*.
+  **Dica**: *A deleção pode ser feita de formas diferentes!*.
 
 </details>
 
 ---
 
 <details>
-  <summary><strong>Implemente a model da tabela sales</strong></summary><br />
+  <summary><strong>Implemente a função create de sale.model.js</strong></summary><br />
 
-  1. A model deve cobrir a seguinte estrutura:
+  1. A função `create` deve retornar a venda criada:
 
   ``` js
     {
-      productId:  // Inteiro, Primary Key, Foreign Key de products
-      saleId:  // Inteiro, Primary Key, Foreign Key de sales
-      quantity:  // Inteiro not null
+      id: 1,
+      date: '2022-06-10T11:51:41.000Z',
     }
   ```
 
-  2. A model deve estar associada a tabela `sales`
+  2. **Atenção**: Diferente das outras funções, a função `create` do sale.model.js recebe um ARRAY como parâmetro!!
 
-  3. O relacionamento será de N:N
+  3. Ao criar uma venda a tabela `sales_products` também deve sofrer atualização.
 
-  4. A model **DEVERÁ** se chamar `SaleProduct`
+  4. A quantidade de produtos deve ser alterada de acordo com a quantidade vendida.
 
-  **Dica**: *Utilize as seeders e o arquivo StoreManger.sql como apoio*.
+  **Dica**: *Utilize o `map` para criar vendas independente do número de produtos!*.
 
 </details>
