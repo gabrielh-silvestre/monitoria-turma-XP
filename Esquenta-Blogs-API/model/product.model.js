@@ -14,12 +14,13 @@ const findById = async ({ id }) => {
 const findByName = async ({ name }) => {
   const product = await Product.findOne({ where: { name } });
 
-  return product ? product[0] : null;
+  return product;
 };
 
 const create = async ({ name, quantity }) => {
-  const product = await Product.create({ name, quantity });
-  return product;
+  const newProduct = await Product.create({ name, quantity });
+
+  return newProduct;
 };
 
 const update = async ({ id, name, quantity }) => {
@@ -30,6 +31,21 @@ const update = async ({ id, name, quantity }) => {
   await product.save();
 
   return product;
+
+  // await Product.update(
+  //   { name, quantity },
+  //   {
+  //     where: {
+  //       id,
+  //     },
+  //   }
+  // );
+
+  // return {
+  //   id,
+  //   name,
+  //   quantity,
+  // };
 };
 
 const remove = async ({ id }) => {
@@ -37,7 +53,7 @@ const remove = async ({ id }) => {
 
   await product.destroy();
 
-  return true;
+  // await Product.destroy({ where: { id } });
 };
 
 module.exports = { findAll, findById, findByName, create, update, remove };

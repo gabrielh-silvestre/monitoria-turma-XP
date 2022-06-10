@@ -1,4 +1,4 @@
-const { Sale, Product, SaleProduct, sequelize } = require('../database/models');
+const { Sale, Product, SalesProduct } = require('../database/models')
 
 const findAll = async () => {
   const sale = await Sale.findAll({
@@ -14,33 +14,26 @@ const findAll = async () => {
 };
 
 const create = async (products) => {
-  const createTransaction = await sequelize.transaction();
+  const sale = await Sale.create();
 
-  try {
-    const sale = await Sale.create();
-
-    const attProducts = products.map(async (p) => {
-      const product = await Product.findByPk(p.productId);
-
-      product.quantity -= p.quantity;
-      await product.save();
-
-      await SaleProduct.create({
-        saleId: sale.id,
-        productId: p.productId,
-        quantity: p.quantity,
-      });
-
-      return product;
+  const attProducts = products.map(async ({ productId, quantity }) => {
+    await SalesProduct.create({
+      saleId: sale.id,
+      productId,
+      quantity,
     });
 
-    await Promise.all(attProducts);
+    const product = await Product.findByPk(productId);
 
-    return sale;
-  } catch (error) {
-    await createTransaction.rollback();
-    return null;
-  }
+    product.quantity -= quantity;
+    await product.save();
+
+    return product;
+  });
+
+  await Promise.all(attProducts);
+
+  return sale;
 };
 
 module.exports = { findAll, create };

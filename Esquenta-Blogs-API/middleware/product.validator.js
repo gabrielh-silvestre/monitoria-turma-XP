@@ -3,7 +3,7 @@ const { BadRequestError, UnprocessableEntityError } = require('restify-errors');
 
 const productCreationSchema = joi.object({
   name: joi.string().not().empty().required(),
-  quantity: joi.number().positive().min(1).required(),
+  quantity: joi.number().positive().required(),
 });
 
 const createValidation = (req, _res, next) => {
